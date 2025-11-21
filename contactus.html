@@ -1,0 +1,92 @@
+ <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us</title>
+  <style>
+    :root{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f3f4f6}
+    .card{background:white;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,0.08);width:100%;max-width:540px}
+    .logo{height:56px;object-fit:contain;margin-bottom:12px}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0 0 18px;color:#475569}
+    label{display:block;font-size:13px;margin-bottom:6px;color:#0f172a}
+    input[type=text],input[type=email],textarea{width:100%;padding:10px 12px;border:1px solid #e6e9ee;border-radius:8px;font-size:14px;box-sizing:border-box}
+    textarea{min-height:120px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:10px;align-items:center;margin-top:14px}
+    button{background:#0ea5a4;color:white;border:0;padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer}
+    .secondary{background:transparent;color:#0f172a;border:1px solid #e6e9ee}
+    .thanks{display:none;margin-top:12px;padding:12px;border-radius:8px;background:#ecfeff;color:#064e52}
+    @media (max-width:520px){.row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- Replace the src below with your uploaded file path (the supplied path is already set) -->
+    <img class="logo" src="/mnt/data/33964ca9-17ba-4199-a363-a1add7e30e97.png" alt="Logo"/>
+    <h1>Contact Us</h1>
+    <p class="lead">Have a question or feedback? Send us a message and we'll get back to you.</p>
+
+    <form id="contactForm">
+      <div class="row">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your full name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" placeholder="Topic (e.g. Billing, Support)" />
+      </div>
+
+      <div style="margin-top:12px">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Send Message</button>
+        <button type="button" class="secondary" id="clearBtn">Clear</button>
+      </div>
+
+      <div class="thanks" id="thanks">Thanks — your message was received. We'll reply to the email you provided.</div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const thanks = document.getElementById('thanks');
+    const clearBtn = document.getElementById('clearBtn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Collect form data
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+        sentAt: new Date().toISOString()
+      };
+
+      // For demo purposes we just log the data and show a thank-you message.
+      // Replace this block with a fetch() POST to your backend endpoint if you have one.
+      console.log('Contact form submitted:', data);
+      thanks.style.display = 'block';
+      form.reset();
+
+      // Optionally hide the message after a few seconds
+      setTimeout(() => { thanks.style.display = 'none'; }, 6000);
+    });
+
+    clearBtn.addEventListener('click', () => form.reset());
+  </script>
+</body>
+</html>
